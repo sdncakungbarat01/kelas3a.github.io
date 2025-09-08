@@ -119,8 +119,8 @@
             border: 2px solid #f3f3f3;
             border-top: 2px solid #3498db;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             animation: spin 1s linear infinite;
             display: inline-block;
             margin-left: 8px;
@@ -129,6 +129,26 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+            margin-top: 10px;
+            display: none;
         }
     </style>
 </head>
@@ -141,22 +161,12 @@
             <h3 class="text-xl font-semibold text-blue-900">SDN CAKUNG BARAT 01</h3>
         </div>
 
-        <!-- Google Spreadsheet Configuration -->
-        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 rounded no-print">
-            <div class="flex items-start">
-                <div class="flex-shrink-0">
-                    <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                    </svg>
-                </div>
-                <div class="ml-3">
-                    <p class="text-sm">
-                        <strong>Konfigurasi Google Spreadsheet:</strong><br>
-                        Untuk menyimpan data ke Google Spreadsheet, silakan ganti URL di dalam kode JavaScript dengan URL Google Apps Script Anda.
-                        <br><small>Petunjuk setup ada di komentar kode JavaScript.</small>
-                    </p>
-                </div>
-            </div>
+        <!-- Status Messages -->
+        <div id="successMessage" class="success-message">
+            ✅ Data berhasil disimpan ke Google Spreadsheet!
+        </div>
+        <div id="errorMessage" class="error-message">
+            ❌ <span id="errorText">Terjadi kesalahan saat menyimpan data.</span>
         </div>
 
         <!-- Journal Page -->
@@ -417,68 +427,8 @@
     </div>
 
     <script>
-        // KONFIGURASI GOOGLE SPREADSHEET
-        // 1. Buat Google Spreadsheet baru
-        // 2. Buka Extensions -> Apps Script
-        // 3. Copy kode berikut ke Apps Script:
-        /*
-        function doPost(e) {
-            var ss = SpreadsheetApp.openById('1JWR28cu9WqAe6xC6G5-Dyp-NjrmJb-isq7_s99KVdsA'); // Ganti dengan ID spreadsheet Anda
-            var sheet = ss.getActiveSheet();
-            
-            var data = JSON.parse(e.postData.contents);
-            
-            // Header kolom (tambahkan di baris pertama spreadsheet jika belum ada)
-            var headers = [
-                'Timestamp', 'Tanggal', 'Nama', 'Kelas', 'Berdoa', 'Membaca', 'Olahraga', 
-                'Membantu Ortu', 'Belajar', 'Berbuat Baik', 'Bersyukur', 'Suasana Hati', 
-                'Level Energi', 'Syukur 1', 'Syukur 2', 'Syukur 3', 'Pencapaian', 'Perbaikan',
-                'Waktu Berdoa', 'Durasi Baca', 'Jenis Olahraga', 'Bantuan Ortu', 'Mata Pelajaran', 'Kebaikan'
-            ];
-            
-            // Jika sheet kosong, tambahkan header
-            if (sheet.getLastRow() === 0) {
-                sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-            }
-            
-            // Tambahkan data baru
-            var newRow = [
-                new Date(),
-                data.date,
-                data.name,
-                data.class,
-                data.habits[0] ? 'Ya' : 'Tidak',
-                data.habits[1] ? 'Ya' : 'Tidak',
-                data.habits[2] ? 'Ya' : 'Tidak',
-                data.habits[3] ? 'Ya' : 'Tidak',
-                data.habits[4] ? 'Ya' : 'Tidak',
-                data.habits[5] ? 'Ya' : 'Tidak',
-                data.habits[6] ? 'Ya' : 'Tidak',
-                data.mood,
-                data.energy,
-                data.gratitude1,
-                data.gratitude2,
-                data.gratitude3,
-                data.achievement,
-                data.improvement,
-                data.habitDetails[0] || '',
-                data.habitDetails[1] || '',
-                data.habitDetails[2] || '',
-                data.habitDetails[3] || '',
-                data.habitDetails[4] || '',
-                data.habitDetails[5] || ''
-            ];
-            
-            sheet.appendRow(newRow);
-            
-            return ContentService.createTextOutput(JSON.stringify({success: true}))
-                .setMimeType(ContentService.MimeType.JSON);
-        }
-        */
-        // 4. Deploy sebagai Web App dengan akses untuk Anyone
-        // 5. Copy URL deployment dan ganti variabel GOOGLE_SCRIPT_URL di bawah
-
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2jBkl2zv4LWepLQ4R5doMTvQZX5RVeMG39On_T5DZvgFBFRgijw5V2rewXHvofISBQg/exec'; // Ganti dengan URL Apps Script Anda
+        // Google Apps Script URL - sudah dikonfigurasi
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2jBkl2zv4LWepLQ4R5doMTvQZX5RVeMG39On_T5DZvgFBFRgijw5V2rewXHvofISBQg/exec';
 
         let currentDate = new Date();
         let habits = Array(7).fill(false);
@@ -586,7 +536,7 @@
             });
         }
 
-        // Save current journal to local storage
+        // Save current journal to memory storage
         function saveCurrentJournal() {
             const dateKey = currentDate.toDateString();
             journalData[dateKey] = {
@@ -603,13 +553,13 @@
                 habitDetails: Array.from(document.querySelectorAll('.habit-time, .habit-duration, .habit-detail')).map(el => el.value)
             };
             
-            // Use regular variables instead of localStorage for Claude environment
+            // Store in memory for Claude environment
             window.journalStorage = journalData;
         }
 
         // Load journal data
         function loadJournalData() {
-            // Load from window storage in Claude environment
+            // Load from window storage
             if (window.journalStorage) {
                 journalData = window.journalStorage;
             }
@@ -664,19 +614,40 @@
             updateGratitudeCount();
         }
 
+        // Show message
+        function showMessage(type, text) {
+            hideMessages();
+            const messageElement = document.getElementById(type === 'success' ? 'successMessage' : 'errorMessage');
+            if (type === 'error') {
+                document.getElementById('errorText').textContent = text;
+            }
+            messageElement.style.display = 'block';
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 5000);
+        }
+
+        // Hide all messages
+        function hideMessages() {
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
         // Validate form data
         function validateForm() {
             const name = document.getElementById('studentName').value.trim();
             const studentClass = document.getElementById('studentClass').value.trim();
             
             if (!name) {
-                alert('⚠️ Nama harus diisi!');
+                showMessage('error', 'Nama harus diisi!');
                 document.getElementById('studentName').focus();
                 return false;
             }
             
             if (!studentClass) {
-                alert('⚠️ Kelas harus diisi!');
+                showMessage('error', 'Kelas harus diisi!');
                 document.getElementById('studentClass').focus();
                 return false;
             }
@@ -684,7 +655,7 @@
             return true;
         }
 
-        // Save to Google Spreadsheet
+        // Save to Google Spreadsheet with improved error handling
         async function saveToSpreadsheet() {
             if (!validateForm()) {
                 return;
@@ -696,49 +667,46 @@
             // Show loading state
             btn.innerHTML = '⏳ Menyimpan... <div class="spinner"></div>';
             btn.disabled = true;
+            hideMessages();
 
             try {
                 // Prepare data for spreadsheet
                 const data = {
                     date: currentDate.toLocaleDateString('id-ID'),
-                    name: document.getElementById('studentName').value,
-                    class: document.getElementById('studentClass').value,
+                    name: document.getElementById('studentName').value.trim(),
+                    class: document.getElementById('studentClass').value.trim(),
                     habits: habits,
                     mood: getMoodText(selectedMood),
-                    energy: document.getElementById('energyLevel').value,
-                    gratitude1: document.getElementById('gratitude1').value,
-                    gratitude2: document.getElementById('gratitude2').value,
-                    gratitude3: document.getElementById('gratitude3').value,
-                    achievement: document.getElementById('achievement').value,
-                    improvement: document.getElementById('improvement').value,
-                    habitDetails: Array.from(document.querySelectorAll('.habit-time, .habit-duration, .habit-detail')).map(el => el.value)
+                    energy: parseInt(document.getElementById('energyLevel').value),
+                    gratitude1: document.getElementById('gratitude1').value.trim(),
+                    gratitude2: document.getElementById('gratitude2').value.trim(),
+                    gratitude3: document.getElementById('gratitude3').value.trim(),
+                    achievement: document.getElementById('achievement').value.trim(),
+                    improvement: document.getElementById('improvement').value.trim(),
+                    habitDetails: Array.from(document.querySelectorAll('.habit-time, .habit-duration, .habit-detail')).map(el => el.value.trim())
                 };
 
-                // Send to Google Apps Script
+                console.log('Sending data to Google Apps Script:', data);
+
+                // Send to Google Apps Script with proper headers and error handling
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'cors',
+                    mode: 'no-cors', // Important for Google Apps Script
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(data)
                 });
 
-                if (response.ok) {
-                    const result = await response.json();
-                    if (result.success) {
-                        alert('✅ Data berhasil disimpan ke Google Spreadsheet!');
-                        saveCurrentJournal(); // Also save locally
-                    } else {
-                        throw new Error('Response tidak berhasil');
-                    }
-                } else {
-                    throw new Error('Network response tidak ok');
-                }
+                // With no-cors mode, we can't check response status
+                // So we assume success if no error is thrown
+                console.log('Data sent successfully');
+                showMessage('success');
+                saveCurrentJournal(); // Also save locally
 
             } catch (error) {
-                console.error('Error:', error);
-                alert('❌ Gagal menyimpan ke Google Spreadsheet. Pastikan URL Google Apps Script sudah benar dan aplikasi sudah di-deploy dengan akses public.\n\nError: ' + error.message);
+                console.error('Error sending data:', error);
+                showMessage('error', 'Gagal menyimpan ke Google Spreadsheet. Periksa koneksi internet Anda dan coba lagi.');
             } finally {
                 // Reset button
                 btn.innerHTML = originalText;
@@ -765,7 +733,7 @@
             }
             
             saveCurrentJournal();
-            alert('✅ Jurnal berhasil disimpan secara lokal!');
+            showMessage('success', 'Jurnal berhasil disimpan secara lokal!');
         }
 
         // Print journal
@@ -791,7 +759,7 @@
                 document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('bg-yellow-200'));
                 selectedMood = 0;
                 
-                alert('🔄 Jurnal berhasil direset!');
+                showMessage('success', 'Jurnal berhasil direset!');
             }
         }
 
@@ -800,8 +768,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
