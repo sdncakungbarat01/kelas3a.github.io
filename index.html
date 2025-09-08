@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jurnal 7 Kebiasaan Anak Indonesia Hebat</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/npm/twemoji@11.3.0/2/svg/1f917.svg">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Poppins', sans-serif; }
@@ -54,66 +55,140 @@
             color: black !important;
         }
         
-        /* Enhanced Mobile Styles */
-        @media (max-width: 768px) {
-            body { padding: 8px; }
-            .journal-page { padding: 16px; }
-            .habit-row { 
-                flex-direction: column; 
-                align-items: flex-start; 
-                padding: 12px; 
-                gap: 8px;
-            }
-            .habit-row .flex-1 { width: 100%; }
-            .habit-row .text-right { 
-                width: 100%; 
-                text-align: left; 
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                flex-wrap: wrap;
-            }
-            .habit-detail, .habit-duration, .habit-time {
-                min-width: 80px;
-                padding: 4px 8px;
-            }
-            .date-header .flex {
-                flex-direction: column;
-                gap: 12px;
-            }
-            .date-header button {
-                order: 3;
-                width: 100%;
-                justify-content: center;
-            }
-            .grid { gap: 12px; }
-            .grid.md\\:grid-cols-2 { grid-template-columns: 1fr; }
-            .space-x-4 { 
-                flex-direction: column; 
-                gap: 12px; 
-                align-items: center;
-            }
-            .space-x-4 > * { margin: 0; width: 100%; max-width: 300px; }
-            h1 { font-size: 1.875rem; }
-            h2 { font-size: 1.25rem; }
-            h3 { font-size: 1.125rem; }
-        }
-        
-        @media (max-width: 480px) {
-            .text-4xl { font-size: 1.5rem; }
-            .text-2xl { font-size: 1.25rem; }
-            .text-xl { font-size: 1.125rem; }
-            .p-8 { padding: 12px; }
-            .p-6 { padding: 12px; }
-            .p-4 { padding: 8px; }
-        }
-        
-        @media print {
-            body { background: white !important; }
-            .journal-page { background: white !important; box-shadow: none !important; }
-            .no-print { display: none !important; }
-        }
-        
+       /* Perbaikan CSS untuk tombol di tampilan mobile */
+
+/* Enhanced Mobile Styles - Update bagian ini */
+@media (max-width: 768px) {
+    body { padding: 8px; }
+    .journal-page { padding: 16px; }
+    
+    /* Perbaikan untuk container tombol */
+    .space-x-4 { 
+        display: flex;
+        flex-direction: column; 
+        gap: 12px; 
+        align-items: stretch; /* Ubah dari center ke stretch */
+        width: 100%;
+    }
+    
+    /* Semua tombol sama ukuran di mobile */
+    .space-x-4 > * { 
+        margin: 0; 
+        width: 100%; 
+        max-width: none; /* Hapus max-width */
+        min-height: 48px; /* Tinggi minimum untuk touch */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    /* Specific button styling */
+    .space-x-4 button {
+        padding: 12px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    /* Hover effects untuk mobile (touch) */
+    .space-x-4 button:active {
+        transform: scale(0.98);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    /* Disabled button state */
+    .space-x-4 button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+    
+    /* Loading spinner dalam tombol */
+    .space-x-4 button .spinner {
+        margin-left: 8px;
+        margin-right: 0;
+    }
+    
+    /* Container untuk tombol */
+    .flex.justify-center.space-x-4.mb-6.no-print {
+        padding: 0 16px;
+        margin-bottom: 24px;
+    }
+    
+    /* Responsive lainnya */
+    .habit-row { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        padding: 12px; 
+        gap: 8px;
+    }
+    .habit-row .flex-1 { width: 100%; }
+    .habit-row .text-right { 
+        width: 100%; 
+        text-align: left; 
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .habit-detail, .habit-duration, .habit-time {
+        min-width: 80px;
+        padding: 4px 8px;
+    }
+    .date-header .flex {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .date-header button {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
+    .grid { gap: 12px; }
+    .grid.md\\:grid-cols-2 { grid-template-columns: 1fr; }
+    h1 { font-size: 1.875rem; }
+    h2 { font-size: 1.25rem; }
+    h3 { font-size: 1.125rem; }
+}
+
+/* Untuk layar sangat kecil */
+@media (max-width: 480px) {
+    .flex.justify-center.space-x-4.mb-6.no-print {
+        padding: 0 8px;
+    }
+    
+    .space-x-4 button {
+        padding: 14px 12px;
+        font-size: 13px;
+        min-height: 50px;
+    }
+    
+    .text-4xl { font-size: 1.5rem; }
+    .text-2xl { font-size: 1.25rem; }
+    .text-xl { font-size: 1.125rem; }
+    .p-8 { padding: 12px; }
+    .p-6 { padding: 12px; }
+    .p-4 { padding: 8px; }
+}
+
+/* Perbaikan tambahan untuk konsistensi tombol */
+@media (max-width: 768px) {
+    /* Pastikan semua tombol memiliki style yang konsisten */
+    .bg-green-500, .bg-purple-500, .bg-blue-500, .bg-red-500 {
+        width: 100% !important;
+        margin: 0 !important;
+        max-width: none !important;
+    }
+    
+    /* Spacing yang konsisten */
+    .space-x-4 > button:not(:last-child) {
+        margin-bottom: 0;
+    }
+}
         /* Loading spinner */
         .spinner {
             border: 2px solid #f3f3f3;
@@ -150,6 +225,106 @@
             margin-top: 10px;
             display: none;
         }
+        /* Notifikasi yang lebih menarik */
+.success-message {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    color: #155724;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 2px solid #28a745;
+    margin: 16px 0;
+    display: none;
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    animation: slideIn 0.5s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.success-message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shine 2s ease-in-out;
+}
+
+.error-message {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    color: #721c24;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 2px solid #dc3545;
+    margin: 16px 0;
+    display: none;
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Animasi slide in */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animasi shine effect */
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Pulse animation untuk tombol sukses */
+.btn-success-pulse {
+    animation: successPulse 0.6s ease-in-out;
+}
+
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); background-color: #28a745; }
+    100% { transform: scale(1); }
+}
+
+/* Notification toast style (alternatif) */
+.toast-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10000;
+    font-weight: 500;
+    animation: toastSlideIn 0.3s ease-out;
+}
+
+.toast-notification.error {
+    background: #dc3545;
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-100 to-purple-100 min-h-screen p-4">
@@ -655,64 +830,160 @@
             return true;
         }
 
-        // Save to Google Spreadsheet with improved error handling
-        async function saveToSpreadsheet() {
-            if (!validateForm()) {
-                return;
-            }
+// Save to Google Spreadsheet with better notification
+async function saveToSpreadsheet() {
+    if (!validateForm()) {
+        return;
+    }
 
-            const btn = document.getElementById('spreadsheetBtn');
-            const originalText = btn.innerHTML;
-            
-            // Show loading state
-            btn.innerHTML = '⏳ Menyimpan... <div class="spinner"></div>';
-            btn.disabled = true;
-            hideMessages();
+    const btn = document.getElementById('spreadsheetBtn');
+    const originalText = btn.innerHTML;
+    
+    // Show loading state
+    btn.innerHTML = '⏳ Menyimpan... <div class="spinner"></div>';
+    btn.disabled = true;
+    hideMessages();
 
-            try {
-                // Prepare data for spreadsheet
-                const data = {
-                    date: currentDate.toLocaleDateString('id-ID'),
-                    name: document.getElementById('studentName').value.trim(),
-                    class: document.getElementById('studentClass').value.trim(),
-                    habits: habits,
-                    mood: getMoodText(selectedMood),
-                    energy: parseInt(document.getElementById('energyLevel').value),
-                    gratitude1: document.getElementById('gratitude1').value.trim(),
-                    gratitude2: document.getElementById('gratitude2').value.trim(),
-                    gratitude3: document.getElementById('gratitude3').value.trim(),
-                    achievement: document.getElementById('achievement').value.trim(),
-                    improvement: document.getElementById('improvement').value.trim(),
-                    habitDetails: Array.from(document.querySelectorAll('.habit-time, .habit-duration, .habit-detail')).map(el => el.value.trim())
-                };
+    try {
+        // Prepare data for spreadsheet
+        const data = {
+            date: currentDate.toLocaleDateString('id-ID'),
+            name: document.getElementById('studentName').value.trim(),
+            class: document.getElementById('studentClass').value.trim(),
+            habits: habits,
+            mood: getMoodText(selectedMood),
+            energy: parseInt(document.getElementById('energyLevel').value),
+            gratitude1: document.getElementById('gratitude1').value.trim(),
+            gratitude2: document.getElementById('gratitude2').value.trim(),
+            gratitude3: document.getElementById('gratitude3').value.trim(),
+            achievement: document.getElementById('achievement').value.trim(),
+            improvement: document.getElementById('improvement').value.trim(),
+            habitDetails: Array.from(document.querySelectorAll('.habit-time, .habit-duration, .habit-detail')).map(el => el.value.trim())
+        };
 
-                console.log('Sending data to Google Apps Script:', data);
+        console.log('Sending data to Google Apps Script:', data);
 
-                // Send to Google Apps Script with proper headers and error handling
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors', // Important for Google Apps Script
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
+        // Send to Google Apps Script
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
 
-                // With no-cors mode, we can't check response status
-                // So we assume success if no error is thrown
-                console.log('Data sent successfully');
-                showMessage('success');
-                saveCurrentJournal(); // Also save locally
+        // Karena no-cors, kita tidak bisa membaca response
+        // Jadi kita asumsikan berhasil jika tidak ada error
+        console.log('Request sent successfully');
+        
+        // Tampilkan notifikasi sukses
+        showSuccessNotification();
+        saveCurrentJournal(); // Also save locally
+        
+        // Opsional: Bersihkan form atau lakukan aksi lain
+        // resetFormAfterSave(); // Uncomment jika ingin reset form setelah simpan
 
-            } catch (error) {
-                console.error('Error sending data:', error);
-                showMessage('error', 'Gagal menyimpan ke Google Spreadsheet. Periksa koneksi internet Anda dan coba lagi.');
-            } finally {
-                // Reset button
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }
+    } catch (error) {
+        console.error('Error sending data:', error);
+        showErrorNotification('Gagal menyimpan ke Google Spreadsheet. Periksa koneksi internet Anda dan coba lagi.');
+    } finally {
+        // Reset button
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
+}
+
+// Fungsi untuk menampilkan notifikasi sukses
+function showSuccessNotification() {
+    // Hapus notifikasi yang ada
+    hideMessages();
+    
+    // Tampilkan pesan sukses
+    const successMsg = document.getElementById('successMessage');
+    successMsg.innerHTML = '✅ Data berhasil disimpan ke Google Spreadsheet!';
+    successMsg.style.display = 'block';
+    
+    // Scroll ke atas untuk melihat notifikasi
+    document.getElementById('successMessage').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'nearest' 
+    });
+    
+    // Auto hide setelah 4 detik
+    setTimeout(() => {
+        successMsg.style.display = 'none';
+    }, 4000);
+    
+    // Tambahkan efek konfeti jika mau (opsional)
+    showConfetti();
+}
+
+// Fungsi untuk menampilkan notifikasi error
+function showErrorNotification(message) {
+    hideMessages();
+    
+    const errorMsg = document.getElementById('errorMessage');
+    document.getElementById('errorText').textContent = message;
+    errorMsg.style.display = 'block';
+    
+    // Scroll ke notifikasi
+    errorMsg.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'nearest' 
+    });
+    
+    // Auto hide setelah 6 detik
+    setTimeout(() => {
+        errorMsg.style.display = 'none';
+    }, 6000);
+}
+
+// Fungsi konfeti sederhana (opsional)
+function showConfetti() {
+    // Buat efek konfeti sederhana
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+    
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            createConfetti(colors[Math.floor(Math.random() * colors.length)]);
+        }, i * 10);
+    }
+}
+
+function createConfetti(color) {
+    const confetti = document.createElement('div');
+    confetti.style.position = 'fixed';
+    confetti.style.width = '10px';
+    confetti.style.height = '10px';
+    confetti.style.backgroundColor = color;
+    confetti.style.left = Math.random() * 100 + '%';
+    confetti.style.top = '-10px';
+    confetti.style.zIndex = '9999';
+    confetti.style.pointerEvents = 'none';
+    confetti.style.borderRadius = '50%';
+    
+    document.body.appendChild(confetti);
+    
+    let pos = -10;
+    const animation = setInterval(() => {
+        pos += 3;
+        confetti.style.top = pos + 'px';
+        confetti.style.transform = `rotate(${pos * 2}deg)`;
+        
+        if (pos > window.innerHeight) {
+            clearInterval(animation);
+            document.body.removeChild(confetti);
         }
+    }, 20);
+}
+
+// Fungsi untuk reset form setelah simpan (opsional)
+function resetFormAfterSave() {
+    if (confirm('Data telah disimpan! Apakah Anda ingin mengosongkan form untuk entri baru?')) {
+        resetJournal();
+    }
+}
 
         // Get mood text
         function getMoodText(mood) {
@@ -762,7 +1033,48 @@
                 showMessage('success', 'Jurnal berhasil direset!');
             }
         }
+// Fungsi untuk membuat toast notification (alternatif)
+function showToast(message, type = 'success', duration = 4000) {
+    // Hapus toast yang ada
+    const existingToast = document.querySelector('.toast-notification');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    // Buat toast baru
+    const toast = document.createElement('div');
+    toast.className = `toast-notification ${type}`;
+    toast.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span>${type === 'success' ? '✅' : '❌'}</span>
+            <span>${message}</span>
+            <button onclick="this.parentElement.parentElement.remove()" 
+                    style="background: none; border: none; color: white; font-size: 18px; cursor: pointer; margin-left: auto;">
+                ×
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Auto remove setelah duration
+    setTimeout(() => {
+        if (toast && toast.parentElement) {
+            toast.style.animation = 'toastSlideIn 0.3s ease-out reverse';
+            setTimeout(() => toast.remove(), 300);
+        }
+    }, duration);
+}
 
+// Gunakan toast notification dalam saveToSpreadsheet
+function showSuccessNotificationToast() {
+    showToast('Data berhasil disimpan ke Google Spreadsheet!', 'success', 4000);
+    
+    // Tambahkan efek pada tombol
+    const btn = document.getElementById('spreadsheetBtn');
+    btn.classList.add('btn-success-pulse');
+    setTimeout(() => btn.classList.remove('btn-success-pulse'), 600);
+}
         // Initialize app
         init();
     </script>
